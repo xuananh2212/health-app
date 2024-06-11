@@ -4,14 +4,14 @@ class MedicineController {
   static getAllMedicines = async (req, res) => {
     new SuccessResponse({
       message: "Get all medicines Success!",
-      metadata: await MedicineService.getAllMedicines(),
+      metadata: await MedicineService.getAllMedicines(req.query),
     }).send(res)
   }
 
   static getMedicineDetail = async (req, res) => {
     new SuccessResponse({
       message: "Get medicine detail Success!",
-      metadata: await MedicineService.getMedicineDetail(),
+      metadata: await MedicineService.getMedicineDetail(req.params),
     }).send(res)
   }
 

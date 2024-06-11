@@ -4,8 +4,8 @@ const asyncHandler = require("../../helpers/asyncHandler")
 const MedicineController = require("../../controllers/medicine.controller")
 const router = express.Router()
 
-router.get("/medicines", asyncHandler(MedicineController.getAllMedicines()))
-router.get("/medicine", asyncHandler(MedicineController.getMedicineDetail()))
-router.post("/medicine", asyncHandler(MedicineController.createMedicine()))
+router.get("/medicines", asyncHandler(MedicineController.getAllMedicines))
+router.get("/medicine/:id", asyncHandler(MedicineController.getMedicineDetail))
+router.post("/medicine", asyncHandler(MedicineController.createMedicine))
 
 module.exports = router
