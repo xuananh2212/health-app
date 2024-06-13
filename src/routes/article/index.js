@@ -5,7 +5,7 @@ const ArticleController = require("../../controllers/article.controller")
 const router = express.Router()
 
 router.get("/articles", asyncHandler(ArticleController.getAllArticles))
-router.get("/article/:id", asyncHandler(ArticleController.getArticleDetail))
+router.get("/articles/:id", asyncHandler(ArticleController.getArticleDetail))
 router.post("/article", asyncHandler(ArticleController.createArticle))
 
 module.exports = router
