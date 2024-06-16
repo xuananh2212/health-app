@@ -7,5 +7,8 @@ router.use("/v1/api/auth", require("./auth"))
 router.use("/v1/api", require("./medicine"))
 router.use("/v1/api", require("./article"))
 router.use("/v1/api", require("./order"))
+router.use("/v1/api", require("./doctor"))
+router.use("/v1/api", require("./doctor-group"))
+router.use("/v1/api", require("./upload"))
 
 module.exports = router
