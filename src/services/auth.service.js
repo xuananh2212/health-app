@@ -15,7 +15,7 @@ class AuthService {
     return userTransformer;
   }
 
-  static signup = async ({name, email, password}) => {
+  static signup = async ({ name, email, password }) => {
     const user = await User.findOne({ where: { email } })
     if (user) {
       throw new BadRequestError("Error: Account already registered!")
