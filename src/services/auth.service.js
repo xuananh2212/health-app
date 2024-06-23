@@ -8,9 +8,19 @@ class AuthService {
     const findUser = await User.findOne({
       where: { email },
     })
-    if (!findUser) throw new BadRequestError("Not found user!")
+    if (!findUser) {
+      return {
+        status:403,
+        message: "Not found user!"
+      }
+    }
     const match = await bcrypt.compare(password, findUser.password)
-    if (!match) throw new AuthFailureError("Authentication Error")
+    if (!match) {
+      return {
+        status:401,
+        message: "UnAuthorization!"
+      }
+    }
     const userTransformer = new UserTransformer(findUser)
     return userTransformer;
   }

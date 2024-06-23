@@ -1,9 +1,10 @@
 const { NotFoundError, BadRequestError } = require("../core/error.response")
 const { Cart, Medicine, User } = require("../models/index");
 class CartService {
-  static getAllOrders = async ({page, limit}) => {
+  static getAllOrders = async ({page, limit, userId}) => {
     const options = {
       order: [["created_at", "desc"]],
+      where: {user_id: userId},
       include: [
         {
             model: User,
