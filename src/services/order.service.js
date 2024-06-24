@@ -4,7 +4,7 @@ class CartService {
   static getAllOrders = async ({page, limit, userId}) => {
     const options = {
       order: [["created_at", "desc"]],
-      where: {user_id: userId},
+      where: { user_id: userId },
       include: [
         {
             model: User,
@@ -13,11 +13,11 @@ class CartService {
         },
         {
           model: Medicine,
-          attributes: ['name'],
-          through: { attributes: [] },
-          as: 'medicines'
+          attributes: ['name', 'description', 'image'],
+          as: 'medicine'
         },
       ],
+
     }
     if (!+page || page < 0) {
       page = 1
@@ -43,14 +43,21 @@ class CartService {
         user_id: userId,
         product_id: productId
       },
-      include: [
-        {
-          model: Medicine,
-          as: "medicines",
-            attributes: ['id', 'name'], 
-        },
-    ],
     })
+    let cart
+    if (findCart) {
+      cart = await findCart.update({quantity: +findCart.quantity + quantity})
+    } else {
+      cart = await Cart.create({
+        user_id: userId,
+        product_id: productId,
+        quantity,
+        old_price: oldPrice,
+        new_price: newPrice,
+        status: 'pending'
+      })
+    }
+    return cart
   }
 
   static updateOrder = async ({ idOrder, payload }) => {
@@ -76,6 +83,15 @@ class CartService {
       },
     })
     return deleted
+  }
+
+  static deleteAllOrder = async ({ ids }) => {
+    const carts = await Cart.destroy({
+      where: {
+        id: ids,
+      },
+    })
+    return carts
   }
 }
 

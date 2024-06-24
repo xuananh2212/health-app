@@ -28,6 +28,13 @@ class OrderController {
       data: await OrderService.updateOrder(req.body),
     }).send(res)
   }
+
+  static deleteAllOrder = async (req, res) => {
+    new SuccessResponse({
+      message: "Delete all order Success!",
+      data: await OrderService.deleteAllOrder(req.body),
+    }).send(res)
+  }
 }
 
 module.exports = OrderController

@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         as: "user",
       })
 
-      Cart.belongsToMany(models.Medicine, {
-        foreignKey: "cart_id",
-        through: "cart_product",
-        as: "medicines"
+      Cart.belongsTo(models.Medicine, {
+        foreignKey: "product_id",
+        as: "medicine"
       })
     }
   }
@@ -28,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      product_id: DataTypes.INTEGER,
       user_id: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
       old_price: DataTypes.FLOAT,

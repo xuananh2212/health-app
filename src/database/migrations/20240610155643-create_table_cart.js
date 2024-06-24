@@ -24,6 +24,15 @@ module.exports = {
           key: "id",
         },
       },
+      product_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "medicines",
+          },
+          key: "id",
+        },
+      },
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
