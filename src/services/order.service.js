@@ -37,11 +37,11 @@ class CartService {
   }
 
   static createOrder = async (payload) => {
-    const { userId, productId, quantity, oldPrice, newPrice, status } = payload
+    const { user_id, product_id, quantity, old_price, new_price, status } = payload
     const findCart = await Cart.findOne({
       where: {
-        user_id: userId,
-        product_id: productId
+        user_id,
+        product_id
       },
     })
     let cart
@@ -49,12 +49,12 @@ class CartService {
       cart = await findCart.update({quantity: +findCart.quantity + quantity})
     } else {
       cart = await Cart.create({
-        user_id: userId,
-        product_id: productId,
+        user_id,
+        product_id,
         quantity,
-        old_price: oldPrice,
-        new_price: newPrice,
-        status: 'pending'
+        old_price,
+        new_price,
+        status,
       })
     }
     return cart
