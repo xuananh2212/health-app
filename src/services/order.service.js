@@ -97,6 +97,13 @@ class CartService {
     })
     return carts
   }
+
+  static updateAllOrder = async ({data}) => {
+    const carts = Cart.bulkCreate(data, {
+      updateOnDuplicate: ["status"],
+    });
+    return carts
+  }
 }
 
 module.exports = CartService
