@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/orders", asyncHandler(OrderController.getAllOrders))
 router.post("/order", asyncHandler(OrderController.createOrder))
-router.patch("/:id", asyncHandler(OrderController.updateOrder))
+router.patch("/order", asyncHandler(OrderController.updateOrder))
 router.delete("/:id", asyncHandler(OrderController.deleteOrder))
 router.post("/order/delete", asyncHandler(OrderController.deleteAllOrder))
 module.exports = router

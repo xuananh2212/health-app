@@ -1,7 +1,7 @@
 const { NotFoundError, BadRequestError } = require("../core/error.response")
 const { Cart, Medicine, User } = require("../models/index");
 class CartService {
-  static getAllOrders = async ({page, limit, userId}) => {
+  static getAllOrders = async ({page, limit, userId, status}) => {
     const options = {
       order: [["created_at", "desc"]],
       where: { user_id: userId },
@@ -27,6 +27,10 @@ class CartService {
       options.limit = limit
       const offset = (page - 1) * limit
       options.offset = offset
+    }
+
+    if (status) {
+      options.where.status = status
     }
 
     const { rows: carts, count } = await Cart.findAndCountAll(options)
@@ -60,14 +64,14 @@ class CartService {
     return cart
   }
 
-  static updateOrder = async ({ idOrder, payload }) => {
+  static updateOrder = async ({idOrder, payload}) => {
     const order = await Cart.findByPk(idOrder)
     if (!order) {
       throw new NotFoundError("Order not found!")
     }
     await Cart.update(payload, {
       where: {
-        id,
+        id:idOrder,
       },
     })
   }
